@@ -1,0 +1,21 @@
+{
+  "name": "bagh-badam-fazel",
+  "version": "1.0.0",
+  "description": "باغ بادام صادراتی محمد فاضل - مرجع رسمی فروش و صادرات بادام",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -l 3000",
+    "start": "npx serve . -l 3000",
+    "build": "echo Static site - no build step needed"
+  },
+  "keywords": [
+    "almond",
+    "بادام",
+    "صادرات",
+    "export",
+    "باغ بادام",
+    "محمد فاضل"
+  ],
+  "author": "Mohammad Fazel",
+  "license": "MIT"
+}
