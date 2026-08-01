@@ -1,0 +1,10 @@
+# robots.txt for باغ بادام محمد فاضل
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# Sitemap location
+Sitemap: https://baghbadam-fazel.ir/sitemap.xml
+
+# Crawl delay (optional, بهتره بردارید برای گوگل)
+# Crawl-delay: 1
