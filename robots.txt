@@ -3,8 +3,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-# Sitemap location
-Sitemap: https://baghbadam-fazel.ir/sitemap.xml
-
-# Crawl delay (optional, بهتره بردارید برای گوگل)
-# Crawl-delay: 1
+Sitemap: https://mfbadam.vercel.app/sitemap.xml
