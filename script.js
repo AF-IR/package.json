@@ -26,7 +26,7 @@ window.addEventListener('resize', () => {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ===== Send form to WhatsApp =====
+// ===== Send form to WhatsApp (دکمه اصلی) =====
 function sendForm(form, subject) {
   const formData = new FormData(form);
   let lines = [`📋 ${subject}`, ''];
@@ -40,6 +40,25 @@ function sendForm(form, subject) {
   const phone = '989010040035'; // بدون صفر ابتدا
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
   window.open(url, '_blank');
+  return false;
+}
+
+// ===== NEW: Send form via SMS (دکمه پیامک) =====
+function sendSMS(form, subject) {
+  const formData = new FormData(form);
+  let lines = [`📋 ${subject}`, ''];
+  formData.forEach((value, key) => {
+    if (value && value.trim()) {
+      const label = form.querySelector(`label[for="${key}"]`)?.textContent || key;
+      lines.push(`▸ ${label}: ${value}`);
+    }
+  });
+  const text = lines.join('\n');
+  const phone = '00989010040035'; // با کد کشور
+  const url = `sms:${phone}?body=${encodeURIComponent(text)}`;
+  // برای گوشی‌های موبایل باز می‌شود
+  window.location.href = url;
+  // اگر در دسکتاپ کار نکرد، پیام خطا نمی‌دهیم
   return false;
 }
 
