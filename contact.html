@@ -4,25 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- ===== تگ‌های اصلی سئو ===== -->
   <title>تماس با ما | باغ بادام صادراتی محمد فاضل</title>
   <meta name="description" content="راه‌های ارتباطی با باغ بادام صادراتی محمد فاضل - تلفن، واتس‌اپ، آدرس و موقعیت مکانی روی نقشه." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mfbadam.vercel.app/contact" />
   
-  <!-- ===== Open Graph ===== -->
   <meta property="og:title" content="تماس با ما | باغ بادام محمد فاضل" />
   <meta property="og:description" content="راه‌های ارتباطی با باغ بادام صادراتی محمد فاضل - تلفن، واتس‌اپ، آدرس و موقعیت مکانی روی نقشه." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mfbadam.vercel.app/contact" />
   <meta property="og:image" content="https://mfbadam.vercel.app/og-image.jpg" />
   
-  <!-- ===== Twitter Card ===== -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="تماس با باغ بادام محمد فاضل" />
   <meta name="twitter:description" content="راه‌های ارتباطی با باغ بادام صادراتی محمد فاضل." />
   
-  <!-- ===== بقیه تگ‌ها ===== -->
   <meta name="theme-color" content="#6B3410" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,7 +26,8 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- ===== بدنه کاملاً بدون تغییر ===== -->
+
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="logo">
@@ -100,12 +97,12 @@
       </div>
     </section>
 
-    <!-- ===== فرم پیام با دو دکمه (تنها بخش تغییر کرده) ===== -->
+    <!-- ===== فرم پیام (کاملاً مستقل) ===== -->
     <section class="section section-alt">
       <div class="container">
         <h2 class="section-title">پیام سریع</h2>
         <p class="section-subtitle">پیام خود را بنویسید، مستقیماً از طریق واتس‌اپ یا پیامک برای ما ارسال می‌شود</p>
-        <form class="form" id="contactForm" onsubmit="return sendForm(this, 'پیام از طریق سایت')">
+        <form class="form" id="contactForm">
           <div class="form-row">
             <div class="form-group">
               <label for="name">نام و نام خانوادگی</label>
@@ -130,12 +127,11 @@
             <textarea id="message" name="message" required placeholder="پیام خود را اینجا بنویسید..."></textarea>
           </div>
           
-          <!-- ===== دو دکمه ارسال (اضافه شده) ===== -->
           <div class="btn-group" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-            <button type="submit" class="btn btn-primary" style="background: #25D366; color: #fff; border: none;">
+            <button type="button" class="btn btn-primary" style="background: #25D366; color: #fff; border: none; font-size:1rem;" onclick="sendWhatsApp()">
               💬 ارسال از طریق واتس‌اپ
             </button>
-            <button type="button" class="btn btn-primary" style="background: #1e73be; color: #fff; border: none;" onclick="return sendSMS(document.getElementById('contactForm'), 'پیام از طریق سایت')">
+            <button type="button" class="btn btn-primary" style="background: #1e73be; color: #fff; border: none; font-size:1rem;" onclick="sendSMS()">
               📩 ارسال از طریق پیامک
             </button>
           </div>
@@ -145,6 +141,7 @@
 
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-grid">
       <div class="footer-col">
@@ -168,6 +165,57 @@
     <div class="footer-bottom">© <span id="year"></span> تمامی حقوق این سایت برای باغ بادام صادراتی محمد فاضل محفوظ است.</div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- ===== اسکریپت مستقل ===== -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        menuToggle.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          menuToggle.textContent = '☰';
+        });
+      });
+    }
+
+    function sendWhatsApp() {
+      const form = document.getElementById('contactForm');
+      const formData = new FormData(form);
+      let lines = ['📋 پیام از طریق سایت', ''];
+      formData.forEach((value, key) => {
+        if (value && value.trim()) {
+          const label = form.querySelector(`label[for="${key}"]`)?.textContent || key;
+          lines.push(`▸ ${label}: ${value}`);
+        }
+      });
+      const text = lines.join('\n');
+      const phone = '989010040035';
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function sendSMS() {
+      const form = document.getElementById('contactForm');
+      const formData = new FormData(form);
+      let lines = ['📋 پیام از طریق سایت', ''];
+      formData.forEach((value, key) => {
+        if (value && value.trim()) {
+          const label = form.querySelector(`label[for="${key}"]`)?.textContent || key;
+          lines.push(`▸ ${label}: ${value}`);
+        }
+      });
+      const text = lines.join('\n');
+      const phone = '00989010040035';
+      const url = `sms:${phone}?body=${encodeURIComponent(text)}`;
+      window.location.href = url;
+    }
+  </script>
+
 </body>
 </html>
