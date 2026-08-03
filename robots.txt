@@ -1,6 +1,7 @@
 # robots.txt for باغ بادام محمد فاضل
 User-agent: *
 
+Allow: /
 Allow: /direct
 Allow: /order-form.html
 Allow: /agency
