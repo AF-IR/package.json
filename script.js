@@ -26,7 +26,7 @@ window.addEventListener('resize', () => {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ===== Send form to WhatsApp (دکمه اصلی) =====
+// ===== Send form to WhatsApp =====
 function sendForm(form, subject) {
   const formData = new FormData(form);
   let lines = [`📋 ${subject}`, ''];
@@ -37,13 +37,13 @@ function sendForm(form, subject) {
     }
   });
   const text = lines.join('\n');
-  const phone = '989010040035'; // بدون صفر ابتدا
+  const phone = '989010040035';
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
   window.open(url, '_blank');
   return false;
 }
 
-// ===== NEW: Send form via SMS (دکمه پیامک) =====
+// ===== Send form via SMS (اصلاح‌شده برای کار در همه صفحات) =====
 function sendSMS(form, subject) {
   const formData = new FormData(form);
   let lines = [`📋 ${subject}`, ''];
@@ -54,11 +54,18 @@ function sendSMS(form, subject) {
     }
   });
   const text = lines.join('\n');
-  const phone = '00989010040035'; // با کد کشور
+  const phone = '00989010040035';
   const url = `sms:${phone}?body=${encodeURIComponent(text)}`;
-  // برای گوشی‌های موبایل باز می‌شود
-  window.location.href = url;
-  // اگر در دسکتاپ کار نکرد، پیام خطا نمی‌دهیم
+  
+  // روش ترکیبی: اول با location.href (در موبایل کار می‌کند)
+  try {
+    window.location.href = url;
+  } catch(e) {
+    // اگر خطا داد، با window.open امتحان کن
+    window.open(url, '_blank');
+  }
+  
+  // بازگرداندن false برای جلوگیری از ارسال فرم
   return false;
 }
 
