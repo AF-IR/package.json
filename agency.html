@@ -4,25 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- ===== تگ‌های اصلی سئو ===== -->
   <title>دریافت نمایندگی فروش بادام | باغ بادام محمد فاضل</title>
   <meta name="description" content="دریافت نمایندگی رسمی فروش و صادرات بادام ایرانی با شرایط ویژه، سود بالا و پشتیبانی کامل از باغ بادام محمد فاضل." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mfbadam.vercel.app/agency" />
   
-  <!-- ===== Open Graph ===== -->
   <meta property="og:title" content="دریافت نمایندگی فروش بادام | باغ بادام محمد فاضل" />
   <meta property="og:description" content="دریافت نمایندگی رسمی فروش و صادرات بادام ایرانی با شرایط ویژه، سود بالا و پشتیبانی کامل." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mfbadam.vercel.app/agency" />
   <meta property="og:image" content="https://mfbadam.vercel.app/og-image.jpg" />
   
-  <!-- ===== Twitter Card ===== -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="نمایندگی فروش بادام صادراتی" />
   <meta name="twitter:description" content="شرایط ویژه برای نمایندگان فروش باغ بادام محمد فاضل." />
   
-  <!-- ===== بقیه تگ‌های فنی ===== -->
   <meta name="theme-color" content="#6B3410" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,7 +26,8 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- ===== بدنه کاملاً بدون تغییر ===== -->
+
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="logo">
@@ -136,12 +133,12 @@
       </div>
     </section>
 
-    <!-- ===== فرم درخواست با دو دکمه (تنها بخش تغییر کرده) ===== -->
+    <!-- ===== فرم درخواست نمایندگی (کاملاً مستقل) ===== -->
     <section class="section" id="apply">
       <div class="container">
         <h2 class="section-title">فرم درخواست نمایندگی</h2>
         <p class="section-subtitle">مشخصات خود را وارد کنید تا کارشناسان ما در اسرع وقت با شما تماس بگیرند</p>
-        <form class="form" id="agencyForm" onsubmit="return sendForm(this, 'درخواست نمایندگی فروش')">
+        <form class="form" id="agencyForm">
           <div class="form-row">
             <div class="form-group">
               <label for="name">نام و نام خانوادگی</label>
@@ -178,12 +175,11 @@
             <textarea id="message" name="message" placeholder="چرا می‌خواهید نماینده ما شوید؟"></textarea>
           </div>
           
-          <!-- ===== دو دکمه ارسال (اضافه شده) ===== -->
           <div class="btn-group" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-            <button type="submit" class="btn btn-primary" style="background: #25D366; color: #fff; border: none;">
+            <button type="button" class="btn btn-primary" style="background: #25D366; color: #fff; border: none; font-size:1rem;" onclick="sendWhatsApp()">
               💬 ارسال از طریق واتس‌اپ
             </button>
-            <button type="button" class="btn btn-primary" style="background: #1e73be; color: #fff; border: none;" onclick="return sendSMS(document.getElementById('agencyForm'), 'درخواست نمایندگی فروش')">
+            <button type="button" class="btn btn-primary" style="background: #1e73be; color: #fff; border: none; font-size:1rem;" onclick="sendSMS()">
               📩 ارسال از طریق پیامک
             </button>
           </div>
@@ -193,6 +189,7 @@
 
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-grid">
       <div class="footer-col">
@@ -216,6 +213,57 @@
     <div class="footer-bottom">© <span id="year"></span> تمامی حقوق این سایت برای باغ بادام صادراتی محمد فاضل محفوظ است.</div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- ===== اسکریپت مستقل ===== -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        menuToggle.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          menuToggle.textContent = '☰';
+        });
+      });
+    }
+
+    function sendWhatsApp() {
+      const form = document.getElementById('agencyForm');
+      const formData = new FormData(form);
+      let lines = ['📋 درخواست نمایندگی فروش', ''];
+      formData.forEach((value, key) => {
+        if (value && value.trim()) {
+          const label = form.querySelector(`label[for="${key}"]`)?.textContent || key;
+          lines.push(`▸ ${label}: ${value}`);
+        }
+      });
+      const text = lines.join('\n');
+      const phone = '989010040035';
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function sendSMS() {
+      const form = document.getElementById('agencyForm');
+      const formData = new FormData(form);
+      let lines = ['📋 درخواست نمایندگی فروش', ''];
+      formData.forEach((value, key) => {
+        if (value && value.trim()) {
+          const label = form.querySelector(`label[for="${key}"]`)?.textContent || key;
+          lines.push(`▸ ${label}: ${value}`);
+        }
+      });
+      const text = lines.join('\n');
+      const phone = '00989010040035';
+      const url = `sms:${phone}?body=${encodeURIComponent(text)}`;
+      window.location.href = url;
+    }
+  </script>
+
 </body>
 </html>
