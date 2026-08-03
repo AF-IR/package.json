@@ -1,6 +1,18 @@
 # robots.txt for باغ بادام محمد فاضل
 User-agent: *
-Allow: /
+
+Allow: /direct
+Allow: /order-form.html
+Allow: /agency
+Allow: /contact
+Allow: /blog/
+Allow: /blog/almond-cultivation-guide.html
+Allow: /blog/almond-export-guide.html
+Allow: /blog/almond-health-benefits.html
+Allow: /blog/almond-planting-calendar.html
+Allow: /blog/almond-types-comparison.html
+
 Disallow: /404.html
+Disallow: /google7c77afc46043d842.html
 
 Sitemap: https://mfbadam.vercel.app/sitemap.xml
