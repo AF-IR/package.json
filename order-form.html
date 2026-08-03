@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- ===== تگ‌های اصلی سئو ===== -->
+  <title>فرم سفارش خرده‌فروشی | باغ بادام محمد فاضل</title>
+  <meta name="description" content="فرم ثبت سفارش خرده‌فروشی بادام از باغ بادام محمد فاضل. مراحل ساده و سریع." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://mfbadam.vercel.app/order-form.html" />
+  
+  <!-- ===== Open Graph ===== -->
+  <meta property="og:title" content="فرم سفارش خرده‌فروشی | باغ بادام محمد فاضل" />
+  <meta property="og:description" content="ثبت سفارش خرده‌فروشی بادام با کیفیت صادراتی." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mfbadam.vercel.app/order-form.html" />
+  <meta property="og:image" content="https://mfbadam.vercel.app/og-image.jpg" />
+  
+  <!-- ===== بقیه تگ‌ها ===== -->
+  <meta name="theme-color" content="#6B3410" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  
+  <style>
+    /* ===== استایل‌های اختصاصی فرم ===== */
+    .form-step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .form-step.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .step-progress {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0ddd8;
+      color: #5a5548;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .step-dot.active {
+      background: #1e3a2f;
+      color: #f5efe8;
+    }
+    .step-dot.done {
+      background: #d4b68a;
+      color: #1e3a2f;
+    }
+    .step-line {
+      flex: 1;
+      max-width: 60px;
+      height: 3px;
+      background: #e0ddd8;
+      align-self: center;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .step-line.done {
+      background: #d4b68a;
+    }
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+      border: 1px solid #eeeae4;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .form-card h3 {
+      font-size: 1.3rem;
+      color: #1e3a2f;
+      margin-bottom: 0.5rem;
+    }
+    .form-card .sub {
+      color: #7a7568;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .btn-group-steps {
+      display: flex;
+      gap: 12px;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .btn-group-steps .btn {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+    .btn-outline-secondary {
+      background: transparent;
+      color: #5a5548;
+      border: 2px solid #ddd8d0;
+    }
+    .btn-outline-secondary:hover {
+      background: #f5f0ea;
+    }
+    .form-group-radio {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 1rem 0;
+    }
+    .form-group-radio label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 2px solid #eeeae4;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .form-group-radio label:hover {
+      border-color: #d4b68a;
+    }
+    .form-group-radio input[type="radio"] {
+      accent-color: #1e3a2f;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .form-group-radio label.selected {
+      border-color: #1e3a2f;
+      background: #f8f6f2;
+    }
+    .summary-box {
+      background: #f8f6f2;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0;
+      line-height: 2;
+    }
+    .summary-box strong {
+      color: #1e3a2f;
+    }
+    .send-options {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .send-options .btn {
+      min-width: 160px;
+      padding: 14px 28px;
+    }
+    @media (max-width: 600px) {
+      .form-card {
+        padding: 1.5rem 1.2rem;
+      }
+      .step-dot {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+      }
+      .step-line {
+        max-width: 30px;
+      }
+      .btn-group-steps .btn {
+        min-width: 80px;
+        font-size: 0.9rem;
+      }
+      .send-options .btn {
+        min-width: 130px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== نوار ناوبری (همانند سایت) ===== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">🌰</span>
+        <span>باغ بادام محمد فاضل</span>
+      </a>
+      <button class="menu-toggle" aria-label="منو">☰</button>
+      <ul class="nav-links">
+        <li><a href="/">خانه</a></li>
+        <li><a href="/direct">خرید مستقیم</a></li>
+        <li><a href="/agency">نمایندگی</a></li>
+        <li><a href="/contact">تماس</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ===== هدر کوچک ===== -->
+    <section style="padding: 2rem 1rem 0.5rem; text-align: center;">
+      <h1 style="font-size: 1.6rem; color: #1e3a2f;">📋 فرم سفارش خرده‌فروشی</h1>
+      <p style="color: #5a5548; max-width: 500px; margin: 0.5rem auto;">لطفاً اطلاعات زیر را تکمیل کنید تا سفارش شما ثبت شود.</p>
+    </section>
+
+    <!-- ===== فرم گام‌به‌گام ===== -->
+    <section style="padding: 1rem 1rem 3rem;">
+      <div class="container">
+
+        <!-- ===== نوار پیشرفت ===== -->
+        <div class="step-progress" id="stepProgress">
+          <span class="step-dot active" data-step="1">۱</span>
+          <span class="step-line" data-step="1"></span>
+          <span class="step-dot" data-step="2">۲</span>
+          <span class="step-line" data-step="2"></span>
+          <span class="step-dot" data-step="3">۳</span>
+          <span class="step-line" data-step="3"></span>
+          <span class="step-dot" data-step="4">۴</span>
+          <span class="step-line" data-step="4"></span>
+          <span class="step-dot" data-step="5">۵</span>
+        </div>
+
+        <div class="form-card">
+
+          <!-- ===== گام ۱: نام و نام خانوادگی ===== -->
+          <div class="form-step active" data-step="1">
+            <h3>👤 اطلاعات شما</h3>
+            <p class="sub">لطفاً نام و نام خانوادگی خود را وارد کنید.</p>
+            <div class="form-group">
+              <label for="fullname">نام و نام خانوادگی</label>
+              <input type="text" id="fullname" name="fullname" placeholder="مثال: محمد فاضل" required />
+            </div>
+            <div class="btn-group-steps">
+              <button class="btn btn-primary" onclick="nextStep(1)">بعدی ➜</button>
+            </div>
+          </div>
+
+          <!-- ===== گام ۲: مقدار بادام ===== -->
+          <div class="form-step" data-step="2">
+            <h3>⚖️ مقدار بادام درخواستی</h3>
+            <p class="sub">مقدار تقریبی بادام مورد نیاز خود را به کیلوگرم وارد کنید.</p>
+            <div class="form-group">
+              <label for="quantity">مقدار (کیلوگرم)</label>
+              <input type="number" id="quantity" name="quantity" placeholder="مثلاً ۵۰" min="1" required />
+            </div>
+            <div class="btn-group-steps">
+              <button class="btn btn-outline-secondary" onclick="prevStep(2)">➜ قبلی</button>
+              <button class="btn btn-primary" onclick="nextStep(2)">بعدی ➜</button>
+            </div>
+          </div>
+
+          <!-- ===== گام ۳: نوع ارسال ===== -->
+          <div class="form-step" data-step="3">
+            <h3>🚚 روش ارسال</h3>
+            <p class="sub">نحوه تحویل سفارش خود را انتخاب کنید.</p>
+            <div class="form-group-radio" id="deliveryGroup">
+              <label class="delivery-option">
+                <input type="radio" name="delivery" value="snapp" />
+                <span>📦 ارسال با اسنپ (هزینه به عهده مشتری)</span>
+              </label>
+              <label class="delivery-option">
+                <input type="radio" name="delivery" value="pickup" />
+                <span>🏪 دریافت حضوری از انبار اصفهان یا باغ مبارکه (با هماهنگی قبلی)</span>
+              </label>
+            </div>
+            <div id="addressField" style="display:none; margin-top: 1rem;">
+              <div class="form-group">
+                <label for="address">📌 آدرس کامل (برای ارسال با اسنپ)</label>
+                <textarea id="address" name="address" rows="3" placeholder="شهر، خیابان، پلاک، کد پستی..."></textarea>
+              </div>
+            </div>
+            <div class="btn-group-steps">
+              <button class="btn btn-outline-secondary" onclick="prevStep(3)">➜ قبلی</button>
+              <button class="btn btn-primary" onclick="nextStep(3)">بعدی ➜</button>
+            </div>
+          </div>
+
+          <!-- ===== گام ۴: تأیید نهایی ===== -->
+          <div class="form-step" data-step="4">
+            <h3>✅ خلاصه سفارش</h3>
+            <p class="sub">لطفاً اطلاعات زیر را بررسی کنید.</p>
+            <div class="summary-box" id="summaryBox">
+              <p><strong>نام:</strong> <span id="summaryName">—</span></p>
+              <p><strong>مقدار:</strong> <span id="summaryQty">—</span> کیلوگرم</p>
+              <p><strong>روش ارسال:</strong> <span id="summaryDelivery">—</span></p>
+              <p id="summaryAddressRow" style="display:none;"><strong>آدرس:</strong> <span id="summaryAddress">—</span></p>
+            </div>
+            <div class="btn-group-steps">
+              <button class="btn btn-outline-secondary" onclick="prevStep(4)">➜ قبلی</button>
+              <button class="btn btn-primary" onclick="nextStep(4)">ثبت سفارش ➜</button>
+            </div>
+          </div>
+
+          <!-- ===== گام ۵: ارسال ===== -->
+          <div class="form-step" data-step="5">
+            <h3>📤 ارسال سفارش</h3>
+            <p class="sub">سفارش خود را از طریق یکی از راه‌های زیر ارسال کنید.</p>
+            <div style="text-align:center; padding: 0.5rem 0;">
+              <p style="font-size:1.1rem; color:#1e3a2f;">👋 سفارش شما آماده ارسال است!</p>
+              <p style="color:#5a5548; font-size:0.95rem;">لطفاً یکی از گزینه‌های زیر را انتخاب کنید.</p>
+            </div>
+            <div class="send-options">
+              <button class="btn" style="background:#25D366; color:#fff; border:none; font-size:1rem;" onclick="submitOrder('whatsapp')">
+                💬 واتس‌اپ
+              </button>
+              <button class="btn" style="background:#1e73be; color:#fff; border:none; font-size:1rem;" onclick="submitOrder('sms')">
+                📩 پیامک
+              </button>
+            </div>
+            <div style="text-align:center; margin-top:1.2rem;">
+              <button class="btn btn-outline-secondary" onclick="prevStep(5)" style="font-size:0.9rem;">➜ بازگشت و ویرایش</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== فوتر (همانند سایت) ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>🌰 باغ بادام محمد فاضل</h4>
+        <p style="opacity:.85; font-size:.95rem;">تولید و صادرات انواع بادام ایرانی با بالاترین کیفیت، مستقیم از مزرعه.</p>
+      </div>
+      <div class="footer-col">
+        <h4>دسترسی سریع</h4>
+        <a href="/">خانه</a>
+        <a href="/direct">خرید مستقیم</a>
+        <a href="/agency">نمایندگی</a>
+        <a href="/contact">تماس با ما</a>
+      </div>
+      <div class="footer-col">
+        <h4>تماس</h4>
+        <a href="tel:+989010040035">📞 ۰۹۰۱۰۰۴۰۰۳۵</a>
+        <a href="https://wa.me/989010040035">💬 واتس‌اپ</a>
+        <a href="https://maps.app.goo.gl/CEVLpnCoBDTHPzhT7" target="_blank" rel="noopener">📍 لوکیشن گوگل مپ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> تمامی حقوق این سایت برای باغ بادام صادراتی محمد فاضل محفوظ است.</div>
+  </footer>
+
+  <!-- ===== اسکریپت اختصاصی فرم ===== -->
+  <script>
+    // ===== تنظیم سال =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== داده‌های فرم =====
+    const formData = {
+      fullname: '',
+      quantity: '',
+      delivery: '',
+      address: ''
+    };
+
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    // ===== عناصر =====
+    const steps = document.querySelectorAll('.form-step');
+    const dots = document.querySelectorAll('.step-dot');
+    const lines = document.querySelectorAll('.step-line');
+
+    // ===== نمایش گام =====
+    function showStep(step) {
+      steps.forEach((el, i) => {
+        el.classList.toggle('active', i === step - 1);
+      });
+      dots.forEach((dot, i) => {
+        const num = i + 1;
+        dot.classList.remove('active', 'done');
+        if (num === step) dot.classList.add('active');
+        else if (num < step) dot.classList.add('done');
+      });
+      lines.forEach((line, i) => {
+        const num = i + 1;
+        line.classList.toggle('done', num < step);
+      });
+      // اسکرول به بالای فرم
+      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ===== رفتن به گام بعدی =====
+    function nextStep(current) {
+      // ذخیره داده‌های گام فعلی
+      if (current === 1) {
+        const val = document.getElementById('fullname').value.trim();
+        if (!val) {
+          alert('لطفاً نام و نام خانوادگی خود را وارد کنید.');
+          return;
+        }
+        formData.fullname = val;
+      } else if (current === 2) {
+        const val = document.getElementById('quantity').value.trim();
+        if (!val || parseInt(val) < 1) {
+          alert('لطفاً مقدار معتبر (حداقل ۱ کیلوگرم) وارد کنید.');
+          return;
+        }
+        formData.quantity = val;
+      } else if (current === 3) {
+        const selected = document.querySelector('input[name="delivery"]:checked');
+        if (!selected) {
+          alert('لطفاً روش ارسال را انتخاب کنید.');
+          return;
+        }
+        formData.delivery = selected.value;
+        if (formData.delivery === 'snapp') {
+          const addr = document.getElementById('address').value.trim();
+          if (!addr) {
+            alert('لطفاً آدرس کامل خود را برای ارسال با اسنپ وارد کنید.');
+            return;
+          }
+          formData.address = addr;
+        } else {
+          formData.address = '';
+        }
+      } else if (current === 4) {
+        // گام ۴ فقط نمایش خلاصه است
+        // اطلاعات قبلاً ذخیره شده
+      }
+
+      if (current < totalSteps) {
+        currentStep = current + 1;
+        showStep(currentStep);
+        // اگر به گام ۴ رسیدیم، خلاصه را به‌روز کنیم
+        if (currentStep === 4) updateSummary();
+        // اگر به گام ۵ رسیدیم، هیچ کاری
+      }
+    }
+
+    // ===== رفتن به گام قبلی =====
+    function prevStep(current) {
+      if (current > 1) {
+        currentStep = current - 1;
+        showStep(currentStep);
+        // اگر گام ۳ است و مقدار delivery انتخاب شده، آدرس را نمایش/مخفی کن
+        if (currentStep === 3) {
+          toggleAddressField();
+        }
+      }
+    }
+
+    // ===== نمایش/مخفی کردن فیلد آدرس =====
+    function toggleAddressField() {
+      const selected = document.querySelector('input[name="delivery"]:checked');
+      const addrField = document.getElementById('addressField');
+      if (selected && selected.value === 'snapp') {
+        addrField.style.display = 'block';
+      } else {
+        addrField.style.display = 'none';
+      }
+    }
+
+    // ===== به‌روزرسانی خلاصه =====
+    function updateSummary() {
+      document.getElementById('summaryName').textContent = formData.fullname || '—';
+      document.getElementById('summaryQty').textContent = formData.quantity || '—';
+      let deliveryText = '—';
+      if (formData.delivery === 'snapp') deliveryText = 'ارسال با اسنپ (هزینه به عهده مشتری)';
+      else if (formData.delivery === 'pickup') deliveryText = 'دریافت حضوری از انبار اصفهان یا باغ مبارکه';
+      document.getElementById('summaryDelivery').textContent = deliveryText;
+
+      const addrRow = document.getElementById('summaryAddressRow');
+      if (formData.delivery === 'snapp' && formData.address) {
+        document.getElementById('summaryAddress').textContent = formData.address;
+        addrRow.style.display = 'block';
+      } else {
+        addrRow.style.display = 'none';
+      }
+    }
+
+    // ===== رویدادهای رادیو باتن =====
+    document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        toggleAddressField();
+        // حذف کلاس selected از همه
+        document.querySelectorAll('.delivery-option').forEach(label => label.classList.remove('selected'));
+        // افزودن کلاس selected به والد label
+        const parentLabel = radio.closest('.delivery-option');
+        if (parentLabel) parentLabel.classList.add('selected');
+      });
+    });
+
+    // ===== تابع ارسال نهایی =====
+    function submitOrder(method) {
+      // ساخت پیام کامل
+      const subject = 'سفارش خرده‌فروشی جدید';
+      let message = `📋 ${subject}\n\n`;
+      message += `▸ نام و نام خانوادگی: ${formData.fullname || '—'}\n`;
+      message += `▸ مقدار درخواستی: ${formData.quantity || '—'} کیلوگرم\n`;
+      let deliveryText = '—';
+      if (formData.delivery === 'snapp') deliveryText = 'ارسال با اسنپ (هزینه به عهده مشتری)';
+      else if (formData.delivery === 'pickup') deliveryText = 'دریافت حضوری از انبار اصفهان یا باغ مبارکه';
+      message += `▸ روش ارسال: ${deliveryText}\n`;
+      if (formData.delivery === 'snapp' && formData.address) {
+        message += `▸ آدرس: ${formData.address}\n`;
+      }
+      message += `\n🔹 لطفاً با مشتری تماس بگیرید.`;
+
+      const phone = '989010040035'; // بدون صفر ابتدا
+
+      if (method === 'whatsapp') {
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+      } else if (method === 'sms') {
+        const url = `sms:0098${phone}?body=${encodeURIComponent(message)}`;
+        window.location.href = url;
+      }
+    }
+
+    // ===== نمایش گام اول =====
+    showStep(1);
+
+    // ===== در گام ۳ اگر قبلاً انتخابی شده بود، وضعیت را بازیابی کن =====
+    // این تابع در nextStep و prevStep مدیریت می‌شود.
+  </script>
+</body>
+</html>
