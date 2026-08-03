@@ -111,12 +111,12 @@
       </div>
     </section>
 
-    <!-- ===== فرم سفارش با دو دکمه ===== -->
+    <!-- ===== فرم سفارش با دو دکمه و id صحیح ===== -->
     <section class="section" id="order">
       <div class="container">
         <h2 class="section-title">فرم سفارش سریع</h2>
         <p class="section-subtitle">فرم را پر کنید تا کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس بگیرند</p>
-        <form class="form" id="orderForm" onsubmit="return sendForm(this, 'سفارش خرید مستقیم بادام')">
+        <form class="form" id="orderForm">
           <div class="form-row">
             <div class="form-group">
               <label for="name">نام و نام خانوادگی</label>
@@ -167,10 +167,10 @@
           
           <!-- ===== دو دکمه ارسال ===== -->
           <div class="btn-group" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-            <button type="submit" class="btn btn-primary" style="background: #25D366; color: #fff; border: none;">
+            <button type="button" class="btn btn-primary" style="background: #25D366; color: #fff; border: none; font-size:1rem;" onclick="return sendWhatsApp('orderForm', 'سفارش خرید مستقیم بادام')">
               💬 ارسال از طریق واتس‌اپ
             </button>
-            <button type="button" class="btn btn-primary" style="background: #1e73be; color: #fff; border: none;" onclick="return sendSMS(document.getElementById('orderForm'), 'سفارش خرید مستقیم بادام')">
+            <button type="button" class="btn btn-primary" style="background: #1e73be; color: #fff; border: none; font-size:1rem;" onclick="return sendSMS('orderForm', 'سفارش خرید مستقیم بادام')">
               📩 ارسال از طریق پیامک
             </button>
           </div>
