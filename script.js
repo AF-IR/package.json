@@ -26,8 +26,13 @@ window.addEventListener('resize', () => {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ===== Send form to WhatsApp =====
-function sendForm(form, subject) {
+// ===== تابع ارسال از طریق واتس‌اپ (با گرفتن id فرم) =====
+function sendWhatsApp(formId, subject) {
+  const form = document.getElementById(formId);
+  if (!form) {
+    alert('خطا: فرم یافت نشد!');
+    return false;
+  }
   const formData = new FormData(form);
   let lines = [`📋 ${subject}`, ''];
   formData.forEach((value, key) => {
@@ -43,8 +48,13 @@ function sendForm(form, subject) {
   return false;
 }
 
-// ===== Send form via SMS (اصلاح‌شده برای کار در همه صفحات) =====
-function sendSMS(form, subject) {
+// ===== تابع ارسال از طریق پیامک (با گرفتن id فرم) =====
+function sendSMS(formId, subject) {
+  const form = document.getElementById(formId);
+  if (!form) {
+    alert('خطا: فرم یافت نشد!');
+    return false;
+  }
   const formData = new FormData(form);
   let lines = [`📋 ${subject}`, ''];
   formData.forEach((value, key) => {
@@ -54,18 +64,16 @@ function sendSMS(form, subject) {
     }
   });
   const text = lines.join('\n');
+  // شماره با کد کشور ۰۰۹۸
   const phone = '00989010040035';
   const url = `sms:${phone}?body=${encodeURIComponent(text)}`;
   
-  // روش ترکیبی: اول با location.href (در موبایل کار می‌کند)
+  // روش مطمئن: هم location.href و هم fallback
   try {
     window.location.href = url;
   } catch(e) {
-    // اگر خطا داد، با window.open امتحان کن
     window.open(url, '_blank');
   }
-  
-  // بازگرداندن false برای جلوگیری از ارسال فرم
   return false;
 }
 
